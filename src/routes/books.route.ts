@@ -5,7 +5,7 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 // When you use import type, TypeScript tells the bundler (like Webpack or esbuild) to only include the type information and ignore the actual code during bundling.
 //In this case, no code from fastify-type-provider-zod will be included in the final bundle, because the import type only tells TypeScript to check types, not to bring in runtime code.
 
-import {createBookHandler, getBooksHandler, getBooksById} from "../controllers/books.controller"
+import {createBookHandler, getBooksHandler, getBooksByIdHandler, updateBooksHandler} from "../controllers/books.controller"
 import {createBookSchema} from "../schemas/books.schema"
 
 
@@ -20,7 +20,11 @@ export async function bookRoutes(server: FastifyInstance){
     )
     server.withTypeProvider<ZodTypeProvider>().get(
         "/books/:id",
-        getBooksById
+        getBooksByIdHandler
+    )
+    server.withTypeProvider<ZodTypeProvider>().put(
+        "/books/:id",
+        updateBooksHandler
     )
 
 }
