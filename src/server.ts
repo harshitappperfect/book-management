@@ -1,9 +1,15 @@
 import Fastify from "fastify";
+import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 
 import prisma from "./database";
 import { bookRoutes } from "./routes/books.route";
 
 const server = Fastify();
+
+server.withTypeProvider<ZodTypeProvider>()
+  .setValidatorCompiler(validatorCompiler)  // Use Zod's validation logic
+  .setSerializerCompiler(serializerCompiler) // Use Zod's serialization logic
+
 
 server.register(bookRoutes)
 
