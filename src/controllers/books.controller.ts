@@ -1,6 +1,6 @@
 import type { FastifyRequest } from "fastify";
 
-import {createBook, getBooks} from "../services/books.service"
+import {createBook, getBooks, getBooksByIdService} from "../services/books.service"
 
 
 export const createBookHandler = async (request: FastifyRequest <{Body: {title: string, author: string, year: number, summary: string}} >) =>{
@@ -18,5 +18,15 @@ export const getBooksHandler = async ()=>{
     } catch (error) {
         console.log(error)
         throw error
+    }
+}
+
+export const getBooksById = async (request: FastifyRequest <{Params: {id: number}}>)=>{
+    try {
+        const {id} = request.params;
+        return await getBooksByIdService(Number(id));
+    } catch (error) {
+        console.log(error);
+        throw(error)
     }
 }

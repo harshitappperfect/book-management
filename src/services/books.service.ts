@@ -7,3 +7,7 @@ export const createBook = async ( data: {title: string, author: string, year: nu
 export const getBooks = async ()=>{
     return prisma.book.findMany();
 }
+
+export const getBooksByIdService = async (id: number)=>{
+    return prisma.book.findUnique({where: {id}})
+}
