@@ -15,3 +15,8 @@ export const getBooksById = async (id: number)=>{
 export const updateBook = async (id: number, data: {title: string, author: string, year: number , summary: string})=>{
     return prisma.book.update({where: {id} , data})
 }
+
+export const deleteBook = async(id:number)=>{
+    await prisma.book.delete({where :{id}})
+    return {message: "Book deleted successfully"}
+}
